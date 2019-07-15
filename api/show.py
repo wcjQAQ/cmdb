@@ -3,7 +3,7 @@ from flask_restful import Resource
 from lib.Salt import salt_api
 from etc.configure import GetConfigure
 
-class Show(Resource):
+class ShowCron(Resource):
      def get(self, hostname,users):
          arg = 'crontab -l -u %s' %users
          tgt = '%s' %hostname

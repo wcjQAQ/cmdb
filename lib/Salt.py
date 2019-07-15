@@ -54,7 +54,7 @@ class salt_api(object):
         for i in reqDict:
             if re.search('[a-z]|[A-Z]', i):
                 #print(i.strip().strip('\''))
-                crontab.append(i.strip().strip('\''))
+                crontab.append(i.strip().strip('\'').strip('\"'))
         return crontab
 
 
