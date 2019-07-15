@@ -18,10 +18,9 @@ api.add_resource(ShowUsers, '/api/show/cabinet/<hostname>')
 api.add_resource(ShowHostInfo, '/api/show/<cabinet>/<host>/info')
 api.add_resource(ShowCabinets,'/api/show/cabinet')
 api.add_resource(ShowHosts,'/api/show/<cabinet>')
-
 ###### add  #######
 api.add_resource(AddCron,'/api/add/crontab')
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=8000)

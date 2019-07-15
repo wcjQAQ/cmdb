@@ -2,14 +2,16 @@
 from flask_restful import Resource
 from lib.Salt import salt_api
 from etc.configure import GetConfigure
+import re
+import operator
 
 class ShowCron(Resource):
      def get(self, hostname,users):
-         arg = 'crontab -l -u %s' %users
+         arg = '%s' %users
          tgt = '%s' %hostname
          crontablist = salt_api()
-         return  crontablist.run_crontab(tgt=tgt, arg=arg)
-
+         crontab = crontablist.list_crontab(tgt=tgt, arg=arg)
+         return crontab
 
 
 class ShowUsers(Resource):
@@ -17,8 +19,8 @@ class ShowUsers(Resource):
         arg = 'ls /var/spool/cron'
         tgt = '%s' % hostname
         crontablist = salt_api()
-        return crontablist.run_crontab(tgt=tgt, arg=arg)
-
+        users =  crontablist.run_command(tgt=tgt, arg=arg)['return'][0][tgt]
+        return  re.split('\n',users)
 
 class ShowCabinets(Resource):
     def get(self):
@@ -55,3 +57,4 @@ class ShowHostInfo(Resource):
         for i in info:
             hostinfo = i[0]
         return hostinfo
+
